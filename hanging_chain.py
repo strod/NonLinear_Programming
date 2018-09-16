@@ -45,21 +45,28 @@ def hang_chain(x1=None, y1=None, lb=np.array([4, 4, 4, 4]), nb=4,
 
     if (go is None) & (g1 is None):
         bbg = None
+        flag_plot = False
     elif (go is not None) & (g1 is None):
         def bbg(arr, beta=go, alfa=0, nj=nk):
             gx = np.array([beta + (arr[i] * alfa) - arr[i + nk] for i in range(nj)])
             jgx = np.array([[g1 if (i == j) else -1 if (i == j+nj) else 0 for i in range(2*nj)] for j in range(nj)])
             return gx, jgx
+
+        flag_plot = True
     elif (go is None) & (g1 is not None):
         def bbg(arr, beta=0, alfa=g1, nj=nk):
             gx = np.array([beta + (arr[i] * alfa) - arr[i + nk] for i in range(nj)])
             jgx = np.array([[g1 if (i == j) else -1 if (i == j+nj) else 0 for i in range(2*nj)] for j in range(nj)])
             return gx, jgx
+
+        flag_plot = True
     else:
         def bbg(arr, beta=go, alfa=g1, nj=nk):
             gx = np.array([beta + (arr[i] * alfa) - arr[i + nk] for i in range(nj)])
             jgx = np.array([[g1 if (i == j) else -1 if (i == j+nj) else 0 for i in range(2*nj)] for j in range(nj)])
             return gx, jgx
+
+        flag_plot = True
 
     def bbobj(arr):
         fx = sum([(lb[i - nk - 1] / 2) * (arr[i] + arr[i - 1]) for i in range(nk + 1, nk + nb + 1)])
@@ -76,14 +83,14 @@ def hang_chain(x1=None, y1=None, lb=np.array([4, 4, 4, 4]), nb=4,
         plt.figure(figsize=(6, 6))
         a = xopt[:nk]
         b = xopt[nk:]
-
-        plane = lambda x: go + (g1 * x)
-        w = np.linspace(0, max(xopt[:nk]), 100)
-        z = np.array([plane(xi) for xi in w])
         plt.scatter(a, b)
         plt.plot(a, b, 'r--')
-        if (go is not None) | (g1 is not None):
+        if flag_plot:
+            plane = lambda x: go + (g1 * x)
+            w = np.linspace(0, max(xopt[:nk]), 100)
+            z = np.array([plane(xi) for xi in w])
             plt.plot(w, z, 'g')
         plt.show()
-
-    return xopt, lx(xopt)
+    x_joints = xopt[:nk]
+    y_joints = xopt[nk:]
+    return x_joints, y_joints, lx(xopt)
