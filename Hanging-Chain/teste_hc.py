@@ -3,7 +3,7 @@ import numpy as np
 import pnl
 
 bar = np.random.randint(5, 15, 10)
-bbobj, bbh, xo, xopt, bars = hang_chain(x1=20, y1=10, log=True, use_grad=True, nb=10, lb=bar, go=-20, g1=-2)
+bbobj, bbh, xo, xopt, bars = hang_chain(x1=25, y1=0, log=True, use_grad=True, nb=10, lb=bar, go=-20, g1=-1)
 
 fx, grad = bbobj(xo)
 hx, jhx = bbh(xo)

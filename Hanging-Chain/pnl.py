@@ -1,9 +1,7 @@
 # Algebra and Calculus
 import numpy as np
-
 # Scientific Solvers and Models
 import scipy.optimize as spo
-
 # Timing functions
 import time as tm
 import inspect
@@ -114,7 +112,7 @@ def pensolver(xo=None, ri=10, fobj=None, hx=None, gx=None, sigma=2,
 
     if generate_log:
         right_now = tm.strftime("%Y-%m-%d_%H-%M", tm.gmtime())
-        log = open("log_penalized_solver_{0}.txt".format(right_now), "w")
+        log = open("./log/log_penalized_solver_{0}.txt".format(right_now), "w")
 
         log.write("LOG DOCUMENT  - PENALIZED FUNCTION SOLVER \n\n Date and Hour: {} \n\n".format(right_now))
         log.write("{0}".format(inspect.getsource(fobj)))

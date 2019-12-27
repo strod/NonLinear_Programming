@@ -4,10 +4,17 @@ import matplotlib.pyplot as plt
 
 
 def hang_chain(x1=None, y1=None, lb=np.array([4, 4, 4, 4]), nb=4, log=False, use_grad=True, go=0, g1=0):
-
     """
 
-
+    :param x1:
+    :param y1:
+    :param lb:
+    :param nb:
+    :param log:
+    :param use_grad:
+    :param go:
+    :param g1:
+    :return:
     """
     # nk - Parametric variable to transform y coordinates in x coordinates. y[i] = x[i+nk]
     nk = nb + 1
@@ -46,7 +53,7 @@ def hang_chain(x1=None, y1=None, lb=np.array([4, 4, 4, 4]), nb=4, log=False, use
     else:
         def bbg(arr, beta=go, alfa=g1, nj=nk):
             gx = np.array([beta + (arr[i] * alfa) - arr[i + nk] for i in range(nj)])
-            jgx = np.array([[g1 if (i == j) else -1 if (i == j+nj) else 0 for i in range(2*nj)] for j in range(nj)])
+            jgx = np.array([[g1 if (i == j) else -1 if (i == j + nj) else 0 for i in range(2 * nj)] for j in range(nj)])
             return gx, jgx
 
     def bbobj(arr):
